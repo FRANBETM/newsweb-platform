@@ -1,0 +1,54 @@
+<div class="container py-5 min-vh-100">
+  <!-- Validamos si la noticia se encontró -->
+  @if (noticia) {
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+        
+        <!-- Migas de pan (Breadcrumb) -->
+        <nav aria-label="breadcrumb" class="mb-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/noticias" class="text-decoration-none">Noticias</a></li>
+            <li class="breadcrumb-item active">{{ noticia.categoria }}</li>
+          </ol>
+        </nav>
+
+        <span class="badge bg-primary mb-3 fs-6">{{ noticia.categoria }}</span>
+        <h1 class="fw-bold mb-3 display-5">{{ noticia.titulo }}</h1>
+
+        <!-- Metadatos y Botón Favoritos -->
+        <div class="d-flex justify-content-between align-items-center text-muted mb-4 pb-3 border-bottom flex-wrap gap-3">
+          <div>
+            <span class="fw-semibold text-dark me-3">Por: {{ noticia.autor }}</span>
+            <span>Publicado: {{ noticia.fecha }}</span>
+          </div>
+          
+          <!-- Botón de acción con binding dinámico de clases CSS -->
+          <button class="btn fw-bold px-4" 
+                  [class.btn-warning]="esFav" 
+                  [class.btn-outline-warning]="!esFav" 
+                  [class.text-dark]="esFav"
+                  (click)="toggleFav()">
+            {{ esFav ? '★ Quitar de Favoritos' : '☆ Guardar en Favoritos' }}
+          </button>
+        </div>
+
+        <!-- Imagen principal -->
+        <img [src]="noticia.imagen" [alt]="noticia.titulo" class="img-fluid rounded shadow-sm mb-5 w-100" style="max-height: 450px; object-fit: cover;">
+
+        <!-- Cuerpo del artículo -->
+        <div class="fs-5 text-dark" style="line-height: 1.8;">
+          <p class="lead fw-semibold mb-4">{{ noticia.descripcion }}</p>
+          <p>{{ noticia.contenido }}</p>
+        </div>
+        
+      </div>
+    </div>
+  } @else {
+    <!-- Mensaje de error si la noticia no existe -->
+    <div class="text-center py-5 mt-5">
+      <h2 class="text-danger mb-3 fw-bold">Noticia no encontrada</h2>
+      <p class="text-muted fs-5">El artículo que buscas no existe o ha sido eliminado.</p>
+      <a routerLink="/noticias" class="btn btn-primary mt-4 px-4">Volver al Catálogo</a>
+    </div>
+  }
+</div>

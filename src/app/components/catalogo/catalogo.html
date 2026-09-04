@@ -1,0 +1,37 @@
+<div class="container py-5 min-vh-100">
+  <div class="row mb-4 border-bottom pb-3">
+    <div class="col-12">
+      <h1 class="fw-bold mb-1">Catálogo de Noticias</h1>
+      <p class="text-muted mb-0">Explora todas nuestras publicaciones recientes por categoría.</p>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    @for (noticia of todasLasNoticias; track noticia.id) {
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="card h-100 shadow-sm border-0">
+          <img [src]="noticia.imagen" class="card-img-top" [alt]="noticia.titulo" style="height: 220px; object-fit: cover;">
+          
+          <div class="card-body d-flex flex-column">
+            <span class="badge bg-info text-dark mb-2 align-self-start">{{ noticia.categoria }}</span>
+            <h2 class="card-title h5 fw-bold">{{ noticia.titulo }}</h2>
+            <p class="card-text text-muted small flex-grow-1">{{ noticia.descripcion }}</p>
+            
+            <a [routerLink]="['/noticia', noticia.id]" class="btn btn-outline-primary mt-3 w-100 fw-semibold">
+              Leer artículo completo
+            </a>
+          </div>
+          
+          <div class="card-footer bg-white border-top border-light text-muted small d-flex justify-content-between">
+            <span>{{ noticia.fecha }}</span>
+            <span class="fw-medium text-dark">{{ noticia.autor }}</span>
+          </div>
+        </article>
+      </div>
+    } @empty {
+      <div class="col-12 text-center py-5">
+        <p class="text-muted fs-5">No hay noticias disponibles en este momento.</p>
+      </div>
+    }
+  </div>
+</div>

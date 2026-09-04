@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "titulo": "La revolución de la IA en la vida cotidiana",
+    "categoria": "Tecnología",
+    "fecha": "Hace 2 horas",
+    "descripcion": "Expertos analizan cómo los modelos de lenguaje asistido están transformando el flujo de trabajo.",
+    "imagen": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+    "autor": "María García",
+    "contenido": "La inteligencia artificial ha dejado de ser un concepto de ciencia ficción para convertirse en una parte integral de nuestras vidas."
+  },
+  {
+    "id": 2,
+    "titulo": "Destinos ecológicos codiciados para visitar",
+    "categoria": "Turismo",
+    "fecha": "Hace 3 horas",
+    "descripcion": "Descubre las rutas sostenibles que destacan por su total preservación de la biosfera.",
+    "imagen": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    "autor": "Carlos Ruiz",
+    "contenido": "El turismo sostenible está redefiniendo los viajes internacionales reduciendo la huella de carbono."
+  }
+]

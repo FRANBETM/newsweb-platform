@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+  <div class="container">
+    <!-- Logo o Nombre de la app -->
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" routerLink="/">
+      <span class="badge bg-primary fs-6">NW</span> NewsWeb
+    </a>
+    
+    <!-- Botón hamburguesa para móviles -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <!-- Enlaces de navegación -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav gap-3">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/noticias" routerLinkActive="active">Noticias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/favoritos" routerLinkActive="active">Mis Favoritos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contacto" routerLinkActive="active">Contacto</a>
+        </li>
+        <!-- Resaltado visual para el CRUD -->
+        <li class="nav-item">
+          <a class="nav-link text-warning fw-semibold" routerLink="/admin" routerLinkActive="active">Admin CRUD</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

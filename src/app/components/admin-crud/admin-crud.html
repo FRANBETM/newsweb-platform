@@ -1,0 +1,122 @@
+<div class="container py-5 min-vh-100">
+  <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+    <div>
+      <h1 class="fw-bold mb-1">Panel de Administración</h1>
+      <p class="text-muted mb-0">Gestiona los artículos del catálogo de noticias.</p>
+    </div>
+    
+    <!-- Botón para crear nueva noticia. Solo se muestra si NO estamos en el formulario -->
+    @if (!mostrarFormulario) {
+      <button class="btn btn-primary fw-bold" (click)="abrirNuevo()">
+        + Nueva Noticia
+      </button>
+    }
+  </div>
+
+  <!-- VISTA 1: TABLA DE DATOS -->
+  @if (!mostrarFormulario) {
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col" class="ps-4">ID</th>
+                <th scope="col">Título</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Fecha</th>
+                <th scope="col" class="text-end pe-4">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (noticia of noticias; track noticia.id) {
+                <tr>
+                  <td class="ps-4 fw-bold">{{ noticia.id }}</td>
+                  <td>{{ noticia.titulo }}</td>
+                  <td><span class="badge bg-secondary">{{ noticia.categoria }}</span></td>
+                  <td>{{ noticia.fecha }}</td>
+                  <td class="text-end pe-4">
+                    <div class="btn-group">
+                      <button class="btn btn-sm btn-outline-primary" (click)="editar(noticia)">Editar</button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="eliminar(noticia.id)">Eliminar</button>
+                    </div>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5" class="text-center py-4 text-muted">No hay noticias en el catálogo.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- VISTA 2: FORMULARIO DE CREACIÓN / EDICIÓN -->
+  @if (mostrarFormulario) {
+    <div class="card shadow border-0 rounded-4">
+      <div class="card-body p-4 p-md-5">
+        <h2 class="fw-bold text-primary mb-4">{{ modoEdicion ? 'Editar Artículo' : 'Crear Nuevo Artículo' }}</h2>
+        
+        <form [formGroup]="crudForm" (ngSubmit)="guardar()">
+          <div class="row g-3">
+            
+            <div class="col-md-8">
+              <label class="form-label fw-semibold">Título</label>
+              <input type="text" class="form-control" formControlName="titulo" [class.is-invalid]="crudForm.get('titulo')?.invalid && crudForm.get('titulo')?.touched">
+            </div>
+            
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Categoría</label>
+              <select class="form-select" formControlName="categoria" [class.is-invalid]="crudForm.get('categoria')?.invalid && crudForm.get('categoria')?.touched">
+                <option value="">Seleccionar...</option>
+                <option value="Tecnología">Tecnología</option>
+                <option value="Turismo">Turismo</option>
+                <option value="Comercio">Comercio</option>
+                <option value="Educación">Educación</option>
+                <option value="General">General</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Autor</label>
+              <input type="text" class="form-control" formControlName="autor" [class.is-invalid]="crudForm.get('autor')?.invalid && crudForm.get('autor')?.touched">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Fecha (Ej. Hace 1 hora)</label>
+              <input type="text" class="form-control" formControlName="fecha" [class.is-invalid]="crudForm.get('fecha')?.invalid && crudForm.get('fecha')?.touched">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label fw-semibold">URL de la Imagen</label>
+              <input type="text" class="form-control" formControlName="imagen" placeholder="https://..." [class.is-invalid]="crudForm.get('imagen')?.invalid && crudForm.get('imagen')?.touched">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label fw-semibold">Descripción corta (Resumen)</label>
+              <textarea rows="2" class="form-control" formControlName="descripcion" [class.is-invalid]="crudForm.get('descripcion')?.invalid && crudForm.get('descripcion')?.touched"></textarea>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label fw-semibold">Contenido completo del artículo</label>
+              <textarea rows="5" class="form-control" formControlName="contenido" [class.is-invalid]="crudForm.get('contenido')?.invalid && crudForm.get('contenido')?.touched"></textarea>
+            </div>
+            
+            <div class="col-12 d-flex gap-3 mt-4 pt-3 border-top">
+              <button type="submit" class="btn btn-success fw-bold px-4" [disabled]="crudForm.invalid">
+                {{ modoEdicion ? 'Actualizar Cambios' : 'Publicar Noticia' }}
+              </button>
+              <button type="button" class="btn btn-light border fw-bold px-4" (click)="cancelar()">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,76 @@
+<div class="container py-5 min-vh-100">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      
+      <div class="card shadow border-0 rounded-4">
+        <div class="card-body p-5">
+          <h1 class="fw-bold mb-2 text-center text-primary">Contáctanos</h1>
+          <p class="text-muted text-center mb-4">¿Tienes alguna duda, sugerencia o noticia que compartir? Escríbenos.</p>
+
+          <!-- Alerta de éxito dinámica -->
+          @if (mensajeEnviado) {
+            <div class="alert alert-success text-center fw-semibold shadow-sm mb-4" role="alert">
+              ✓ ¡Tu mensaje ha sido enviado con éxito! Nos pondremos en contacto pronto.
+            </div>
+          }
+
+          <!-- Formulario conectado a nuestro FormGroup -->
+          <form [formGroup]="contactoForm" (ngSubmit)="enviarMensaje()">
+            
+            <!-- Campo: Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label fw-semibold">Nombre completo</label>
+              <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Ej. Francisco Betancur"
+                     [class.is-invalid]="contactoForm.get('nombre')?.invalid && contactoForm.get('nombre')?.touched">
+              
+              <!-- Validaciones de Nombre -->
+              @if (contactoForm.get('nombre')?.hasError('required') && contactoForm.get('nombre')?.touched) {
+                <div class="invalid-feedback">El nombre es obligatorio.</div>
+              }
+              @if (contactoForm.get('nombre')?.hasError('minlength') && contactoForm.get('nombre')?.touched) {
+                <div class="invalid-feedback">El nombre debe tener al menos 3 caracteres.</div>
+              }
+            </div>
+
+            <!-- Campo: Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label fw-semibold">Correo electrónico</label>
+              <input type="email" id="email" class="form-control" formControlName="email" placeholder="tucorreo@ejemplo.com"
+                     [class.is-invalid]="contactoForm.get('email')?.invalid && contactoForm.get('email')?.touched">
+              
+              <!-- Validaciones de Email -->
+              @if (contactoForm.get('email')?.hasError('required') && contactoForm.get('email')?.touched) {
+                <div class="invalid-feedback">El correo es obligatorio.</div>
+              }
+              @if (contactoForm.get('email')?.hasError('email') && contactoForm.get('email')?.touched) {
+                <div class="invalid-feedback">Ingresa un formato de correo electrónico válido.</div>
+              }
+            </div>
+
+            <!-- Campo: Mensaje -->
+            <div class="mb-4">
+              <label for="mensaje" class="form-label fw-semibold">Tu mensaje</label>
+              <textarea id="mensaje" rows="4" class="form-control" formControlName="mensaje" placeholder="Escribe aquí los detalles..."
+                        [class.is-invalid]="contactoForm.get('mensaje')?.invalid && contactoForm.get('mensaje')?.touched"></textarea>
+              
+              <!-- Validaciones de Mensaje -->
+              @if (contactoForm.get('mensaje')?.hasError('required') && contactoForm.get('mensaje')?.touched) {
+                <div class="invalid-feedback">El mensaje no puede estar vacío.</div>
+              }
+              @if (contactoForm.get('mensaje')?.hasError('minlength') && contactoForm.get('mensaje')?.touched) {
+                <div class="invalid-feedback">Tu mensaje debe tener al menos 10 caracteres.</div>
+              }
+            </div>
+
+            <!-- Botón Enviar (se desactiva si hay errores en el formulario) -->
+            <button type="submit" class="btn btn-primary w-100 fw-bold py-2 fs-5" [disabled]="contactoForm.invalid">
+              Enviar Mensaje
+            </button>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
