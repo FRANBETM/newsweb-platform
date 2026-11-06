@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  web-app:
+    build: .
+    container_name: newsweb_frontend
+    ports:
+      - "${PORT:-4200}:80"
+    environment:
+      - API_HOST=${API_HOST}
+    depends_on:
+      - api-service
+    networks:
+      - app-network
+
+  api-service:
+    image: postgres:15.5-alpine
+    container_name: api-service
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: news_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  pgdata:
