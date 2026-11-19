@@ -14,7 +14,7 @@ pipeline {
                 echo 'Limpiando contenedores previos y construyendo imágenes...'
                 sh '''
                     docker compose down --remove-orphans || true
-                    docker rm -f api-service 2>/dev/null || true
+                    docker rm -f api-service newsweb_frontend 2>/dev/null || true
                     docker compose up --build -d
                 '''
             }
