@@ -11,7 +11,7 @@ pipeline {
 
         stage('Build Containers') {
             steps {
-                echo 'Limpiando contenedores previos y construyendo imágenes...'
+                echo 'Limpiando contenedores previos y construyendo imagenes...'
                 sh '''
                     docker compose down --remove-orphans || true
                     docker rm -f api-service newsweb_frontend 2>/dev/null || true
@@ -22,7 +22,7 @@ pipeline {
 
         stage('Test & Connectivity') {
             steps {
-                echo 'Verificando servicios en la red app-network y comunicación por nombre de servicio...'
+                echo 'Verificando servicios en la red app-network y comunicacion por nombre de servicio...'
                 sh '''
                     sleep 8
                     docker compose ps
