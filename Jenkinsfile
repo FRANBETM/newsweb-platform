@@ -22,11 +22,12 @@ pipeline {
 
         stage('Test & Connectivity') {
             steps {
-                echo 'Verificando servicios activos y comunicación en la red de Docker...'
+                echo 'Verificando servicios en la red app-network y comunicación por nombre de servicio...'
                 sh '''
                     sleep 5
                     docker compose ps
-                    docker compose exec -T web-app wget -qO- http://api-service:8080/health || docker compose ps --status running
+                    docker compose exec -T web-app getent hosts api-service
+                    docker compose exec -T api-service pg_isready -U "${DB_USER:-postgres}" -d news_db -h localhost
                 '''
             }
         }
