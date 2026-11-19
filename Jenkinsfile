@@ -11,17 +11,19 @@ pipeline {
 
         stage('Build Containers') {
             steps {
-                echo 'Construyendo y levantando los contenedores...'
-                // Usamos una invocación compatible con el demonio montado en Jenkins
-                sh 'docker compose up --build -d || docker-compose up --build -d'
+                echo 'Limpiando contenedores anteriores y levantando el stack...'
+                // Detenemos y borramos cualquier contenedor previo para evitar conflictos de nombres
+                sh 'docker compose down || true'
+                // Construimos y levantamos de nuevo de forma limpia
+                sh 'docker compose up --build -d'
             }
         }
 
         stage('Test & Connectivity') {
             steps {
                 echo 'Ejecutando pruebas de verificación y comunicación de red...'
-                // Verificamos el estado del servicio de base de datos en la red
-                sh 'docker exec api-service pg_isready -U postgres || true'
+                // Esperamos unos segundos a que la base de datos inicie y validamos el estado
+                sh 'sleep 5 && docker compose exec -T db pg_isready -U postgres'
             }
         }
     }
