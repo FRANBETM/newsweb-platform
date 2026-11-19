@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo 'Verificando servicios en la red app-network y comunicación por nombre de servicio...'
                 sh '''
-                    sleep 5
+                    sleep 8
                     docker compose ps
                     docker compose exec -T web-app getent hosts api-service
                     docker compose exec -T api-service pg_isready -U "${DB_USER:-postgres}" -d news_db -h localhost
